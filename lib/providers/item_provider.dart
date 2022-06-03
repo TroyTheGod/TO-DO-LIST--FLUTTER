@@ -19,6 +19,7 @@ class Item extends ChangeNotifier {
 
   void remove(int index) {
     _itemList.removeAt(index);
+    DatabaseHelper.instance.remove(index);
     notifyListeners();
   }
 

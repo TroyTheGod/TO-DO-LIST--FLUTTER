@@ -37,6 +37,11 @@ class DatabaseHelper {
     );
   }
 
+  Future<void> remove(int index) async {
+    final db = await instance.database;
+    await db.delete('items', where: 'id = ?', whereArgs: [index]);
+  }
+
   Future<List<Items>> getAllItems() async {
     final db = await instance.database;
     final List<Map<String, dynamic>> maps = await db.query('items');
