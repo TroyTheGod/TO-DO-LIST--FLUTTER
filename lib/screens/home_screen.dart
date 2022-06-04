@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:test_1/providers/item_provider.dart';
 import 'package:provider/provider.dart';
 import 'package:test_1/database/database_control.dart';
@@ -17,6 +18,10 @@ class ListDisplay extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        systemOverlayStyle: const SystemUiOverlayStyle(
+          statusBarColor: Colors.transparent,
+          systemNavigationBarColor: Colors.white,
+        ),
         title: const Text('Thing to do'),
         actions: const [
           IconButton(
