@@ -17,22 +17,23 @@ class ListDisplay extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        systemOverlayStyle: const SystemUiOverlayStyle(
-          statusBarColor: Colors.transparent,
-          systemNavigationBarColor: Colors.white,
-        ),
-        title: const Text('Thing to do'),
-        actions: const [
-          IconButton(
-            icon: Icon(
-              Icons.settings,
-              color: Colors.white,
-            ),
-            onPressed: null,
-          ),
-        ],
-      ),
+      // appBar: AppBar(
+      //   systemOverlayStyle: const SystemUiOverlayStyle(
+      //     statusBarColor: Colors.transparent,
+      //     systemNavigationBarColor: Colors.white,
+      //   ),
+      //   title: const Text('Thing to do'),
+      //   actions: const [
+      //     IconButton(
+      //       icon: Icon(
+      //         Icons.settings,
+      //         color: Colors.white,
+      //       ),
+      //       onPressed: null,
+      //     ),
+      //   ],
+      // ),
+      // body: const ToDoItems(),
       body: const ToDoItems(),
       floatingActionButton: FloatingActionButton(
         onPressed: () => _floatingActionButtonOnClick(context),
@@ -106,26 +107,53 @@ class _ToDoItemsState extends State<ToDoItems> {
     );
   }
 
-  ListView ListViewDisplay() {
-    return ListView.builder(
-      itemCount: context.watch<Item>().itemList.length,
-      itemBuilder: (context, i) {
-        return Card(
-            shape:
-                RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
-            color: Theme.of(context).colorScheme.surfaceVariant,
-            elevation: 10,
-            child: slidableList(i));
-      },
-    );
+  SliverChildBuilderDelegate listViewDisplay() {
+    return SliverChildBuilderDelegate((context, index) {
+      return Card(
+          shape:
+              RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
+          color: Theme.of(context).colorScheme.surfaceVariant,
+          elevation: 10,
+          child: slidableList(index));
+    }, childCount: context.watch<Item>().itemList.length);
   }
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      padding: const EdgeInsets.all(20),
-      width: double.infinity,
-      child: ListViewDisplay(),
+    return CustomScrollView(
+      slivers: <Widget>[
+        const SliverAppBar(
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.only(
+              bottomLeft: Radius.circular(15),
+              bottomRight: Radius.circular(15),
+            ),
+          ),
+          systemOverlayStyle: SystemUiOverlayStyle(
+            statusBarColor: Colors.transparent,
+            systemNavigationBarColor: Colors.white,
+          ),
+          actions: [
+            IconButton(
+              icon: Icon(
+                Icons.settings,
+              ),
+              onPressed: null,
+            ),
+          ],
+          pinned: true,
+          snap: true,
+          floating: true,
+          expandedHeight: 160,
+          flexibleSpace: FlexibleSpaceBar(
+            title: Text('Thing to do'),
+            centerTitle: true,
+          ),
+        ),
+        SliverList(
+          delegate: listViewDisplay(),
+        ),
+      ],
     );
   }
 }
