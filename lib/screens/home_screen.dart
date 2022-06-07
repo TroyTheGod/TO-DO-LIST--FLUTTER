@@ -17,23 +17,6 @@ class ListDisplay extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      // appBar: AppBar(
-      //   systemOverlayStyle: const SystemUiOverlayStyle(
-      //     statusBarColor: Colors.transparent,
-      //     systemNavigationBarColor: Colors.white,
-      //   ),
-      //   title: const Text('Thing to do'),
-      //   actions: const [
-      //     IconButton(
-      //       icon: Icon(
-      //         Icons.settings,
-      //         color: Colors.white,
-      //       ),
-      //       onPressed: null,
-      //     ),
-      //   ],
-      // ),
-      // body: const ToDoItems(),
       body: const ToDoItems(),
       floatingActionButton: FloatingActionButton(
         onPressed: () => _floatingActionButtonOnClick(context),
@@ -122,30 +105,30 @@ class _ToDoItemsState extends State<ToDoItems> {
   Widget build(BuildContext context) {
     return CustomScrollView(
       slivers: <Widget>[
-        const SliverAppBar(
-          shape: RoundedRectangleBorder(
+        SliverAppBar(
+          shape: const RoundedRectangleBorder(
             borderRadius: BorderRadius.only(
               bottomLeft: Radius.circular(15),
               bottomRight: Radius.circular(15),
             ),
           ),
-          systemOverlayStyle: SystemUiOverlayStyle(
+          systemOverlayStyle: const SystemUiOverlayStyle(
             statusBarColor: Colors.transparent,
             systemNavigationBarColor: Colors.white,
           ),
           actions: [
             IconButton(
-              icon: Icon(
+              icon: const Icon(
                 Icons.settings,
               ),
-              onPressed: null,
+              onPressed: () => Navigator.pushNamed(context, '/setting'),
             ),
           ],
           pinned: true,
           snap: true,
           floating: true,
           expandedHeight: 160,
-          flexibleSpace: FlexibleSpaceBar(
+          flexibleSpace: const FlexibleSpaceBar(
             title: Text('Thing to do'),
             centerTitle: true,
           ),

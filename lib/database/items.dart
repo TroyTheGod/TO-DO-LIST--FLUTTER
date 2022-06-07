@@ -12,7 +12,7 @@ class Items {
     return itemName;
   }
 
-  factory Items.fromMap(Map<String, dynamic> json) => new Items(
+  factory Items.fromMap(Map<String, dynamic> json) => Items(
         json['id'],
         json['itemName'],
       );
